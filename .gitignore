@@ -44,3 +44,8 @@ Temporary Items
 
 # Other folders
 target/
+.settings/
+
+# Other files
+.classpath
+.project
