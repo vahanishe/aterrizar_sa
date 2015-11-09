@@ -2,6 +2,6 @@ package ar.com.tovmasyanv.aterrizarsa;
 
 public interface MedioComunicacion {
 	
-	public void enviarMensaje(String textoMensaje);
+	public void enviarMensaje(Vuelo vuelo);
 	
 }
