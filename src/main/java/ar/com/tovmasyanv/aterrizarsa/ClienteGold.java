@@ -1,11 +1,11 @@
 package ar.com.tovmasyanv.aterrizarsa;
 
+import ar.com.tovmasyanv.dtos.DatosClienteDTO;
+
 public class ClienteGold extends Cliente {
 
-	@Override
-	public void comprarPasaje(Vuelo vuelo, String tipo) {
-		// TODO Auto-generated method stub
-
+	public ClienteGold(DatosClienteDTO datos) {
+		super(datos);
 	}
 
 	@Override

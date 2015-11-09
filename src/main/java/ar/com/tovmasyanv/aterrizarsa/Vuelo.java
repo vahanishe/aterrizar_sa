@@ -3,6 +3,8 @@ package ar.com.tovmasyanv.aterrizarsa;
 import java.util.Date;
 import java.util.List;
 
+import ar.com.tovmasyanv.exceptions.AterrizarException;
+
 public class Vuelo {
 
 	private String codigoVuelo;
@@ -12,7 +14,19 @@ public class Vuelo {
 	private Date horaSalida;
 	private Date horaLlegada;
 	private String destino;
+	private Integer distancia;
 	private EstadoVuelo estado;
+	
+	public Integer getPrimerMatch(String tipo) throws AterrizarException {
+		int contador = 0;
+		for(Pasaje pasaje : this.getPasajesDisponibles()) {
+			if(pasaje.getTipo().equalsIgnoreCase(tipo))
+				return contador;
+			contador++;
+		}
+		
+		throw new AterrizarException("No quedan mas pasajes de este tipo");
+	}
 	
 	public void setEstadoState (EstadoVuelo estado) {
 		// TODO Implementar patron State
@@ -65,6 +79,14 @@ public class Vuelo {
 	}
 	public void setEstado(EstadoVuelo estado) {
 		this.estado = estado;
+	}
+
+	public Integer getDistancia() {
+		return distancia;
+	}
+
+	public void setDistancia(Integer distancia) {
+		this.distancia = distancia;
 	}
 	
 }

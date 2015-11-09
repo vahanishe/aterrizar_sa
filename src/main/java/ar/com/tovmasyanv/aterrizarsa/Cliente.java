@@ -3,6 +3,9 @@ package ar.com.tovmasyanv.aterrizarsa;
 import java.util.Date;
 import java.util.List;
 
+import ar.com.tovmasyanv.dtos.DatosClienteDTO;
+import ar.com.tovmasyanv.exceptions.AterrizarException;
+
 public abstract class Cliente {
 	
 	protected Integer puntos;
@@ -15,20 +18,52 @@ public abstract class Cliente {
 	protected String telefonoCelular;
 	protected SumadorPuntosTemplate tipoSumador;
 	
+	public Cliente(DatosClienteDTO datos) {
+		this.nombre = datos.getNombre();
+		this.apellido = datos.getApellido();
+		this.numeroDocumento = datos.getNumeroDocumento();
+		this.tipoDocumento = datos.getTipoDocumento();
+		this.medioComunicacion = datos.getMedioComunicacion();
+		this.email = datos.getEmail();
+		this.telefonoCelular = datos.getTelefonoCelular();
+		this.tipoSumador = datos.getTipoSumador();
+		this.puntos = 0;
+	}
+
 	public List<Vuelo> buscarPasajes(String destino, int cantidadPasajes, String tipoPasaje, Date fechaIda, Date fechaVuelta) {
 		// TODO Implementar el metodo
 		return null;		
 	}
+
+	public void comprarPasaje(String codigoVuelo, String tipo) {
+		Empresa empresa = Empresa.getInstance();
+		Vuelo vuelo = null;
+		int indexPasaje = 0;
+		try {
+			vuelo = empresa.buscarVuelo(codigoVuelo);
 	
-	public abstract void comprarPasaje(Vuelo vuelo, String tipo);
+			AerolineasFacade aerolineasFacade = new AerolineasFacade();
+			aerolineasFacade.comprarPasaje(vuelo.getCodigoVuelo(), tipo);
+	
+			indexPasaje = vuelo.getPrimerMatch(tipo);
+		}
+		catch(AterrizarException e) {
+			System.out.println(e.getMessage());
+		}
+		Pasaje pasajeVendido = vuelo.getPasajesDisponibles().remove(indexPasaje);
+		pasajeVendido.setCliente(this);
+		vuelo.getPasajesVendidos().add(pasajeVendido);
+
+		this.getTipoSumador().sumarPuntos(vuelo, pasajeVendido, this);
+	}
 	
 	public abstract void reservarPasaje(Vuelo vuelo, String tipo);
-	
+
 	public abstract void cancelarReserva(Vuelo vuelo, String tipo);
-	
+
 	public abstract void cambiarPasaje(Vuelo vueloViejo, Vuelo vueloNuevo, String tipo);
 
-	
+
 	public Integer getPuntos() {
 		return puntos;
 	}

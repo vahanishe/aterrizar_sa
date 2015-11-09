@@ -3,22 +3,56 @@ package ar.com.tovmasyanv.aterrizarsa;
 import java.util.List;
 
 import ar.com.tovmasyanv.dtos.DatosClienteDTO;
+import ar.com.tovmasyanv.exceptions.AterrizarException;
 
 public class Empresa {
 
 	private List<Cliente> clientes;
 	private List<Vuelo> vuelos;
+	
+	private static Empresa instance = new Empresa();
+	
+	private Empresa() {}
 
 	public void venderPasajePrimeraVez(Vuelo vuelo, String tipo, DatosClienteDTO datos) {
 		
 	}
 	
-	private void agregarCliente(DatosClienteDTO cliente, Pasaje p) {
-		
+	public void agregarCliente(DatosClienteDTO cliente, Pasaje p) {
+		try {
+			this.existeCliente(cliente.getEmail());
+			ClienteFactory factory = new ClienteFactory();
+			Cliente clienteNuevo = factory.getClienteNuevo(p, cliente);
+			this.getClientes().add(clienteNuevo);
+		}
+		catch(AterrizarException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
-	private Boolean existeCliente(Cliente cliente) {
-		return false;
+	private void existeCliente(String email) throws AterrizarException {
+		boolean existe = false;
+		for(Cliente c : this.getClientes()) {
+			if(c.getEmail().equals(email)) {
+				existe = true;
+				break;
+			}
+		}
+		if(existe)
+			throw new AterrizarException("El cliente ya existe en la base");
+	}
+	
+	public Vuelo buscarVuelo(String codigoVuelo) throws AterrizarException {
+		for(Vuelo vuelo : this.getVuelos()) {
+			if(vuelo.getCodigoVuelo().equalsIgnoreCase(codigoVuelo))
+				return vuelo;
+		}
+		
+		throw new AterrizarException("No se encontro el vuelo");
+	}
+	
+	public static Empresa getInstance() {
+		return instance;
 	}
 	
 	public List<Cliente> getClientes() {
