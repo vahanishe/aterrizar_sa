@@ -3,8 +3,9 @@ package ar.com.tovmasyanv.aterrizarsa;
 public class SMS implements MedioComunicacion {
 
 	public void enviarMensaje(Vuelo vuelo) {
-		// TODO Auto-generated method stub
-
+		System.out.println("SMS : Modificaciones del vuelo " + vuelo.getCodigoVuelo());
+		System.out.println("SMS : Horario de la salida " + vuelo.getHoraSalida());
+		System.out.println("SMS : Horario de la llegada " + vuelo.getHoraLlegada());
 	}
 
 }
