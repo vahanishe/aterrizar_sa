@@ -18,6 +18,8 @@ public abstract class Cliente {
 	protected String telefonoCelular;
 	protected SumadorPuntosTemplate tipoSumador;
 	
+	protected Integer RESERVA_ANTICIPACION;
+	
 	public Cliente(DatosClienteDTO datos) {
 		this.nombre = datos.getNombre();
 		this.apellido = datos.getApellido();
@@ -71,7 +73,7 @@ public abstract class Cliente {
 		return null;
 	}
 
-	public abstract void reservarPasaje(Vuelo vuelo, String tipo);
+	public abstract void reservarPasaje(Vuelo vuelo, String tipo) throws AterrizarException;
 
 	public abstract void cancelarReserva(Vuelo vuelo, String tipo);
 
