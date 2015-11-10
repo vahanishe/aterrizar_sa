@@ -38,25 +38,39 @@ public abstract class Cliente {
 	public void comprarPasaje(String codigoVuelo, String tipo) {
 		Empresa empresa = Empresa.getInstance();
 		Vuelo vuelo = null;
+		Pasaje pasaje = null;
 		int indexPasaje = 0;
 		try {
 			vuelo = empresa.buscarVuelo(codigoVuelo);
-	
+			
 			AerolineasFacade aerolineasFacade = new AerolineasFacade();
-			aerolineasFacade.comprarPasaje(vuelo.getCodigoVuelo(), tipo);
-	
-			indexPasaje = vuelo.getPrimerMatch(tipo);
+			aerolineasFacade.comprarPasaje(vuelo.getCodigoVuelo(), tipo);	
+			
+			pasaje = buscarPasajeReservado(vuelo, this);
+			if(pasaje == null) {
+				indexPasaje = vuelo.getPrimerMatch(tipo);
+				pasaje = vuelo.getPasajesDisponibles().remove(indexPasaje);
+				pasaje.setCliente(this);
+			}
+			
+			vuelo.getPasajesVendidos().add(pasaje);
+			this.getTipoSumador().sumarPuntos(vuelo, pasaje, this);
 		}
 		catch(AterrizarException e) {
 			System.out.println(e.getMessage());
 		}
-		Pasaje pasajeVendido = vuelo.getPasajesDisponibles().remove(indexPasaje);
-		pasajeVendido.setCliente(this);
-		vuelo.getPasajesVendidos().add(pasajeVendido);
-
-		this.getTipoSumador().sumarPuntos(vuelo, pasajeVendido, this);
 	}
 	
+	private Pasaje buscarPasajeReservado(Vuelo vuelo, Cliente cliente) {
+		for(Pasaje pasaje : vuelo.getPasajesReservados()) {
+			if(pasaje.getCliente().equals(cliente)) {
+				vuelo.getPasajesReservados().remove(pasaje);
+				return pasaje;
+			}	
+		}
+		return null;
+	}
+
 	public abstract void reservarPasaje(Vuelo vuelo, String tipo);
 
 	public abstract void cancelarReserva(Vuelo vuelo, String tipo);

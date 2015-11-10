@@ -10,8 +10,7 @@ public class ClienteClassic extends Cliente {
 
 	@Override
 	public void reservarPasaje(Vuelo vuelo, String tipo) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override

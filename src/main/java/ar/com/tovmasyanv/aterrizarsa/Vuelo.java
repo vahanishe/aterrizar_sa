@@ -11,6 +11,7 @@ public class Vuelo {
 	private String aerolinea;
 	private List<Pasaje> pasajesDisponibles;
 	private List<Pasaje> pasajesVendidos;
+	private List<Pasaje> pasajesReservados;
 	private Date horaSalida;
 	private Date horaLlegada;
 	private String destino;
@@ -92,6 +93,14 @@ public class Vuelo {
 
 	public void setDistancia(Integer distancia) {
 		this.distancia = distancia;
+	}
+
+	public List<Pasaje> getPasajesReservados() {
+		return pasajesReservados;
+	}
+
+	public void setPasajesReservados(List<Pasaje> pasajesReservados) {
+		this.pasajesReservados = pasajesReservados;
 	}
 	
 }
