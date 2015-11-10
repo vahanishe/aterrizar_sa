@@ -8,4 +8,8 @@ public class Email implements MedioComunicacion {
 		System.out.println("Email : Horario de la llegada " + vuelo.getHoraLlegada());
 	}
 
+	public void enviarAvisoCambioEstadoVuelo(String codigoVuelo, String estado) {
+		System.out.println("Email : el vuelo " + codigoVuelo + " esta " + estado);
+	}
+
 }

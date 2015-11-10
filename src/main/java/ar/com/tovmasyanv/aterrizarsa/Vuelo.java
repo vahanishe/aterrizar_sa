@@ -24,14 +24,19 @@ public class Vuelo {
 				return contador;
 			contador++;
 		}
-		
+
 		throw new AterrizarException("No quedan mas pasajes de este tipo");
 	}
-	
+
 	public void setEstadoState (EstadoVuelo estado) {
-		// TODO Implementar patron State
+		this.estado = estado;
+		this.estado.enviarAviso(this.getCodigoVuelo(), this.getPasajesVendidos());
 	}
 	
+	public EstadoVuelo getEstadoState() {
+		return this.estado;
+	}
+
 	public String getCodigoVuelo() {
 		return codigoVuelo;
 	}

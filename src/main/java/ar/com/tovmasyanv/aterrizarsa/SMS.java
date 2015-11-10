@@ -8,4 +8,8 @@ public class SMS implements MedioComunicacion {
 		System.out.println("SMS : Horario de la llegada " + vuelo.getHoraLlegada());
 	}
 
+	public void enviarAvisoCambioEstadoVuelo(String codigoVuelo, String estado) {
+		System.out.println("SMS : el vuelo " + codigoVuelo + " esta " + estado);		
+	}
+
 }

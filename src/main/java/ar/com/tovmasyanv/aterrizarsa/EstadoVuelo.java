@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface EstadoVuelo {
 	
-	public void enviarAviso(List<Pasaje> pasajesVendidos);
+	public void enviarAviso(String codigoVuelo, List<Pasaje> pasajesVendidos);
 	
 }
