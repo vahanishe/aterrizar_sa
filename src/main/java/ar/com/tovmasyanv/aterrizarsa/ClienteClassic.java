@@ -29,8 +29,7 @@ public class ClienteClassic extends Cliente {
 
 	@Override
 	public void cancelarReserva(Vuelo vuelo, String tipo) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override

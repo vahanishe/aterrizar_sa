@@ -3,7 +3,11 @@ package ar.com.tovmasyanv.aterrizarsa;
 import java.util.Date;
 import java.util.List;
 
+import ar.com.tovmasyanv.exceptions.AterrizarException;
+
 public class AerolineasFacade {
+	
+	private List<Aerolinea> aerolineas;
 
 	public void avisarCambiosVuelo(String codigoVuelo, Date fechaHoraSalidaNew, Date fechaHoraLlegadaNew) {
 		Empresa empresa = Empresa.getInstance();
@@ -32,8 +36,21 @@ public class AerolineasFacade {
 	public void cambiarPasaje(String codigoVueloViejo, String codigoVueloNuevo, String tipo) {
 		
 	}
-	private Aerolinea matchearAerolinea(String aerolinea) {
-		return null;
+	
+	private Aerolinea matchearAerolinea(String aerolinea) throws AterrizarException {
+		for(Aerolinea aerolineaCheck : this.getAerolineas()) {
+			if(aerolinea.equalsIgnoreCase(aerolineaCheck.getName()))
+				return aerolineaCheck;
+		}
+		throw new AterrizarException("No se encuentra la aviolínea buscada");
+	}
+
+	public List<Aerolinea> getAerolineas() {
+		return aerolineas;
+	}
+
+	public void setAerolineas(List<Aerolinea> aerolineas) {
+		this.aerolineas = aerolineas;
 	}
 	
 }
