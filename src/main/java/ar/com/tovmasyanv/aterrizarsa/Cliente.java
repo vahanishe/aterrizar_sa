@@ -77,7 +77,7 @@ public abstract class Cliente {
 
 	public abstract void cancelarReserva(Vuelo vuelo, String tipo) throws AterrizarException;
 
-	public abstract void cambiarPasaje(Vuelo vueloViejo, Vuelo vueloNuevo, String tipo);
+	public abstract void cambiarPasaje(Vuelo vueloViejo, Vuelo vueloNuevo, String tipo) throws AterrizarException;
 
 
 	public Integer getPuntos() {

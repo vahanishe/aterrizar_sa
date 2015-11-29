@@ -33,8 +33,14 @@ public class AerolineasFacade {
 		
 	}
 	
-	public void cambiarPasaje(String codigoVueloViejo, String codigoVueloNuevo, String tipo) {
+	public void cambiarPasaje(String codigoVueloViejo, String codigoVueloNuevo, String tipo) throws AterrizarException {
+		Empresa empresa = Empresa.getInstance();
+		List<Vuelo> vuelos = empresa.getVuelos();
 		
+		for(Vuelo vuelo : vuelos) {
+			if(codigoVueloViejo.equalsIgnoreCase(vuelo.getCodigoVuelo()))
+				matchearAerolinea(vuelo.getAerolinea()).cambiarPasaje(codigoVueloViejo, codigoVueloNuevo, tipo);
+		}
 	}
 	
 	private Aerolinea matchearAerolinea(String aerolinea) throws AterrizarException {
