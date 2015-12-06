@@ -48,9 +48,26 @@ public class ClienteClassic extends Cliente {
 	}
 
 	@Override
-	public void cambiarPasaje(Vuelo vueloViejo, Vuelo vueloNuevo, String tipo) {
-		// TODO Auto-generated method stub
-
+	public void cambiarPasaje(Vuelo vueloViejo, Vuelo vueloNuevo, String tipo) throws AterrizarException {
+		Date fechaActual = new Date();
+		long fechasDiferencia = vueloViejo.getHoraSalida().getTime() - fechaActual.getTime();
+		if(fechasDiferencia/(1000*60*60*24) > DIAS_CANCELACION_CAMBIO) {
+			boolean pasajeEncontrado = false;
+			for(Pasaje pasaje : vueloViejo.getPasajesVendidos()) {
+				if(pasaje.getCliente().equals(this) && pasaje.getTipo().equalsIgnoreCase(tipo)) {
+					vueloViejo.getPasajesVendidos().remove(pasaje);
+					pasajeEncontrado = true;
+				}
+			}
+			if(!pasajeEncontrado)
+				throw new AterrizarException("No se encontró el pasaje a cambiar");
+			int indexPasaje = vueloNuevo.getPrimerMatch(tipo);
+			Pasaje pasajeNuevo = vueloNuevo.getPasajesDisponibles().get(indexPasaje);
+			AerolineasFacade aerolineasFacade = new AerolineasFacade();
+			aerolineasFacade.cambiarPasaje(vueloViejo.getCodigoVuelo(), vueloNuevo.getCodigoVuelo(), tipo);
+			vueloNuevo.getPasajesDisponibles().remove(indexPasaje);
+			vueloNuevo.getPasajesVendidos().add(pasajeNuevo);
+		}
 	}
 
 }
