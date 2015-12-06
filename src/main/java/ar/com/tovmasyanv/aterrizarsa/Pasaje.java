@@ -6,6 +6,12 @@ public class Pasaje {
 	private String tipo;
 	private Cliente cliente;
 	
+	public Pasaje(Float precio, String tipo) {
+		this.precio = precio;
+		this.tipo = tipo;
+		this.cliente = null;
+	}
+	
 	public Float getPrecio() {
 		return precio;
 	}

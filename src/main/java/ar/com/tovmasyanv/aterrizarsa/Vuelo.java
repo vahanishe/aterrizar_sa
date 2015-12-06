@@ -1,5 +1,6 @@
 package ar.com.tovmasyanv.aterrizarsa;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +18,19 @@ public class Vuelo {
 	private String destino;
 	private Integer distancia;
 	private EstadoVuelo estado;
+	
+	public Vuelo(String codigoVuelo, String aerolinea, Date horaSalida,
+			Date horaLlegada, String destino, Integer distancia, List<Pasaje> pasajesDisponibles) {
+		this.codigoVuelo = codigoVuelo;
+		this.aerolinea = aerolinea;
+		this.horaSalida = horaSalida;
+		this.horaLlegada = horaLlegada;
+		this.destino = destino;
+		this.distancia = distancia;
+		this.pasajesDisponibles = pasajesDisponibles;
+		this.pasajesReservados = new ArrayList<Pasaje>();
+		this.pasajesVendidos = new ArrayList<Pasaje>();
+	}
 	
 	public Integer getPrimerMatch(String tipo) throws AterrizarException {
 		int contador = 0;
