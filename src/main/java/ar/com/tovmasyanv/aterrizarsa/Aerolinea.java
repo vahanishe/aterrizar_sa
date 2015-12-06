@@ -1,6 +1,7 @@
 package ar.com.tovmasyanv.aterrizarsa;
 
 import java.util.Date;
+import java.util.List;
 
 public abstract class Aerolinea {
 	
@@ -8,7 +9,7 @@ public abstract class Aerolinea {
 
 	public abstract void avisarCambiosVuelo(String codigoVuelo, Date fechaHoraSalidaNew, Date fechaHoraLlegadaNew);
 	
-	public abstract void buscarPasajes(String destino, int cantidadPasajes, String tipoPasaje, Date fechaIda, Date fechaVuelta);
+	public abstract List<Vuelo> buscarPasajes(String destino, int cantidadPasajes, String tipoPasaje, Date fechaIda, Date fechaVuelta);
 	
 	public abstract void comprarPasaje(String codigoVuelo, String tipo);
 	

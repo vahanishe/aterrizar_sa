@@ -1,5 +1,6 @@
 package ar.com.tovmasyanv.aterrizarsa;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,12 +26,19 @@ public class AerolineasFacade {
 		}
 	}
 	
-	public void buscarPasajes(String destino, int cantidadPasajes, String tipoPasaje, Date fechaIda, Date fechaVuelta) {
-		
+	public List<Vuelo> buscarPasajes(String destino, int cantidadPasajes, String tipoPasaje, Date fechaIda, Date fechaVuelta) {
+		List<Vuelo> vuelos = new ArrayList<Vuelo>();
+		for(Aerolinea aerolinea : this.getAerolineas()) {
+			List<Vuelo> vuelosAerolineas = new ArrayList<Vuelo>();
+			vuelosAerolineas = aerolinea.buscarPasajes(destino, cantidadPasajes, tipoPasaje, fechaIda, fechaVuelta);
+			vuelos.addAll(vuelosAerolineas);
+		}
+		return vuelos;
 	}
 	
-	public void comprarPasaje(String codigoVuelo, String tipo) {
-		
+	public void comprarPasaje(Vuelo vuelo, String tipo) throws AterrizarException {
+		Aerolinea aerolinea = this.matchearAerolinea(vuelo.getAerolinea());
+		aerolinea.comprarPasaje(vuelo.getCodigoVuelo(), tipo);
 	}
 	
 	public void cambiarPasaje(String codigoVueloViejo, String codigoVueloNuevo, String tipo) throws AterrizarException {

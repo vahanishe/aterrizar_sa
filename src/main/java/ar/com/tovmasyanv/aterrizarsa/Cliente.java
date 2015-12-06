@@ -33,8 +33,9 @@ public abstract class Cliente {
 	}
 
 	public List<Vuelo> buscarPasajes(String destino, int cantidadPasajes, String tipoPasaje, Date fechaIda, Date fechaVuelta) {
-		// TODO Implementar el metodo
-		return null;		
+		AerolineasFacade aerolineasFacade = new AerolineasFacade();
+		List<Vuelo> vuelosDisponibles = aerolineasFacade.buscarPasajes(destino, cantidadPasajes, tipoPasaje, fechaIda, fechaVuelta);
+		return vuelosDisponibles;		
 	}
 
 	public void comprarPasaje(String codigoVuelo, String tipo) {
@@ -46,7 +47,7 @@ public abstract class Cliente {
 			vuelo = empresa.buscarVuelo(codigoVuelo);
 			
 			AerolineasFacade aerolineasFacade = new AerolineasFacade();
-			aerolineasFacade.comprarPasaje(vuelo.getCodigoVuelo(), tipo);	
+			aerolineasFacade.comprarPasaje(vuelo, tipo);	
 			
 			pasaje = buscarPasajeReservado(vuelo, this);
 			if(pasaje == null) {
