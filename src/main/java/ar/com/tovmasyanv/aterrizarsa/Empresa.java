@@ -15,19 +15,35 @@ public class Empresa {
 	private Empresa() {}
 
 	public void venderPasajePrimeraVez(Vuelo vuelo, String tipo, DatosClienteDTO datos) {
-		
+		Pasaje pasaje = null;
+		try {
+			AerolineasFacade aerolineasFacade = new AerolineasFacade();
+			aerolineasFacade.comprarPasaje(vuelo, tipo);
+
+			int indexPasaje = vuelo.getPrimerMatch(tipo);
+			pasaje = vuelo.getPasajesDisponibles().remove(indexPasaje);
+			Cliente cliente = this.agregarCliente(datos, pasaje);
+			pasaje.setCliente(cliente);
+
+			vuelo.getPasajesVendidos().add(pasaje);
+			cliente.getTipoSumador().sumarPuntos(vuelo, pasaje, cliente);
+		} catch (AterrizarException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
-	public void agregarCliente(DatosClienteDTO cliente, Pasaje p) {
+	private Cliente agregarCliente(DatosClienteDTO cliente, Pasaje p) {
 		try {
 			this.existeCliente(cliente.getEmail());
 			ClienteFactory factory = new ClienteFactory();
 			Cliente clienteNuevo = factory.getClienteNuevo(p, cliente);
 			this.getClientes().add(clienteNuevo);
+			return clienteNuevo;
 		}
 		catch(AterrizarException e) {
 			System.out.println(e.getMessage());
 		}
+		return null;
 	}
 	
 	private void existeCliente(String email) throws AterrizarException {
