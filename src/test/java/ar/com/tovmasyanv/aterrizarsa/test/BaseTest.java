@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.junit.Before;
 
-import ar.com.tovmasyanv.aterrizarsa.Pasaje;
+import ar.com.tovmasyanv.aterrizarsa.Pasaje;	
 import ar.com.tovmasyanv.aterrizarsa.Vuelo;
 
 public class BaseTest {
