@@ -16,9 +16,10 @@ public class ClienteGold extends Cliente {
 
 	@Override
 	public void reservarPasaje(Vuelo vuelo, String tipo) throws AterrizarException {
+		long diasConverter = 1000L*60L*60L*24L*30L;
 		Date fechaActual = new Date();
 		long fechasDiferencia = vuelo.getHoraSalida().getTime() - fechaActual.getTime();
-		if(fechasDiferencia/(1000*60*60*24*30) < RESERVA_ANTICIPACION) {
+		if( fechasDiferencia/diasConverter < RESERVA_ANTICIPACION) {
 			int indexPasaje = vuelo.getPrimerMatch(tipo);
 			Pasaje pasaje = vuelo.getPasajesDisponibles().remove(indexPasaje);
 			pasaje.setCliente(this);
@@ -32,7 +33,7 @@ public class ClienteGold extends Cliente {
 	public void cancelarReserva(Vuelo vuelo, String tipo) throws AterrizarException {
 		Date fechaActual = new Date();
 		long fechasDiferencia = vuelo.getHoraSalida().getTime() - fechaActual.getTime();
-		if(fechasDiferencia/(1000*60*60*24) > DIAS_CANCELACION_CAMBIO) {
+		if(fechasDiferencia/(1000L*60L*60L*24L) < DIAS_CANCELACION_CAMBIO) {
 			boolean pasajeEncontrado = false;
 			for(Pasaje pasaje : vuelo.getPasajesReservados()) {
 				if(pasaje.getCliente().equals(this) && pasaje.getTipo().equalsIgnoreCase(tipo)) {
@@ -51,7 +52,7 @@ public class ClienteGold extends Cliente {
 	public void cambiarPasaje(Vuelo vueloViejo, Vuelo vueloNuevo, String tipo) throws AterrizarException {
 		Date fechaActual = new Date();
 		long fechasDiferencia = vueloViejo.getHoraSalida().getTime() - fechaActual.getTime();
-		if(fechasDiferencia/(1000*60*60*24) > DIAS_CANCELACION_CAMBIO) {
+		if(fechasDiferencia/(1000L*60L*60L*24L) < DIAS_CANCELACION_CAMBIO) {
 			boolean pasajeEncontrado = false;
 			for(Pasaje pasaje : vueloViejo.getPasajesVendidos()) {
 				if(pasaje.getCliente().equals(this) && pasaje.getTipo().equalsIgnoreCase(tipo)) {

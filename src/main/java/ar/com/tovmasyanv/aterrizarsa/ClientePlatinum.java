@@ -16,9 +16,10 @@ public class ClientePlatinum extends Cliente {
 
 	@Override
 	public void reservarPasaje(Vuelo vuelo, String tipo) throws AterrizarException {
+		long diasConverter = 1000L*60L*60L*24L*30L;
 		Date fechaActual = new Date();
 		long fechasDiferencia = vuelo.getHoraSalida().getTime() - fechaActual.getTime();
-		if( fechasDiferencia/(1000*60*60*24*30) < RESERVA_ANTICIPACION) {
+		if( fechasDiferencia/diasConverter < RESERVA_ANTICIPACION) {
 			int indexPasaje = vuelo.getPrimerMatch(tipo);
 			Pasaje pasaje = vuelo.getPasajesDisponibles().remove(indexPasaje);
 			pasaje.setCliente(this);
