@@ -112,7 +112,7 @@ public class BaseTest {
 		pasajesRawson.add(pasaje16);
 		pasajesRawson.add(pasaje17);
 		vueloRawson = new Vuelo("AA-1089", "Aerolineas Argentinas", new Date(116, 3, 10, 10, 0),
-				new Date(116, 3, 10, 18, 0), "Rio de Janeiro", 3500, pasajesRawson);
+				new Date(116, 3, 10, 18, 0), "Rawson", 3500, pasajesRawson);
 		
 		
 		sebasGonzalez = new DatosClienteDTO();
@@ -148,6 +148,12 @@ public class BaseTest {
 		Aerolinea tam = new TAM("TAM");
 		Aerolinea lan = new LAN("LAN");
 		Aerolinea aeroArgentinas = new AerolineasArgentinas("Aerolineas Argentinas");
+		
+		tam.getVuelos().add(vueloRio);
+		lan.getVuelos().add(vueloSantaFe);
+		lan.getVuelos().add(vueloCordoba2);
+		aeroArgentinas.getVuelos().add(vueloCordoba);
+		aeroArgentinas.getVuelos().add(vueloRawson);
 		
 		AerolineasFacade aerolineasFacade = AerolineasFacade.getInstance();
 		aerolineasFacade.getAerolineas().add(tam);

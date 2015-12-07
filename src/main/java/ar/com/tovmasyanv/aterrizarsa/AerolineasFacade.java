@@ -17,8 +17,8 @@ public class AerolineasFacade {
 	}
 
 	public void avisarCambiosVuelo(String codigoVuelo, Date fechaHoraSalidaNew, Date fechaHoraLlegadaNew) {
-		Empresa empresa = Empresa.getInstance();
-		List<Vuelo> vuelos = empresa.getVuelos();
+		
+		List<Vuelo> vuelos = this.getTodosVuelos();
 		
 		for(Vuelo vuelo : vuelos) {
 			if(codigoVuelo.equalsIgnoreCase(vuelo.getCodigoVuelo())) {
@@ -48,8 +48,8 @@ public class AerolineasFacade {
 	}
 	
 	public void cambiarPasaje(String codigoVueloViejo, String codigoVueloNuevo, String tipo) throws AterrizarException {
-		Empresa empresa = Empresa.getInstance();
-		List<Vuelo> vuelos = empresa.getVuelos();
+		
+		List<Vuelo> vuelos = this.getTodosVuelos();
 		
 		for(Vuelo vuelo : vuelos) {
 			if(codigoVueloViejo.equalsIgnoreCase(vuelo.getCodigoVuelo()))
@@ -63,6 +63,24 @@ public class AerolineasFacade {
 				return aerolineaCheck;
 		}
 		throw new AterrizarException("No se encuentra la aviolínea buscada");
+	}
+	
+	public Vuelo buscarVuelo(String codigoVuelo) {
+		for(Aerolinea aerolinea : this.getAerolineas()) {
+			for(Vuelo vuelo : aerolinea.getVuelos()) {
+				if(vuelo.getCodigoVuelo().equalsIgnoreCase(codigoVuelo))
+					return vuelo;
+			}
+		}
+		return null;
+	}
+	
+	private List<Vuelo> getTodosVuelos() {
+		List<Vuelo> vuelos = new ArrayList<Vuelo>();
+		for(Aerolinea aerolinea : this.getAerolineas()) {
+			vuelos.addAll(aerolinea.getVuelos());
+		}
+		return vuelos;
 	}
 
 	public static AerolineasFacade getInstance() {

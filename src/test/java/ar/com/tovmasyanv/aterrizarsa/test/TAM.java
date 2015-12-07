@@ -1,5 +1,6 @@
 package ar.com.tovmasyanv.aterrizarsa.test;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +31,16 @@ public class TAM extends Aerolinea {
 		System.out.println("Tipo de pasajes: " + tipoPasaje);
 		System.out.println("Fecha de ida: " + fechaIda.toString());
 		System.out.println("Fecha de vuelta: " + fechaVuelta.toString());
-		return null;
+		
+		List<Vuelo> vuelosDisponibles = new ArrayList<Vuelo>();
+		for(Vuelo vuelo : this.getVuelos()) {
+			if(vuelo.getDestino().equals(destino)
+					&& vuelo.getHoraSalida().equals(fechaIda)
+					&& this.pasajesDisponiblesPorTipo(vuelo, tipoPasaje) >= cantidadPasajes) {
+				vuelosDisponibles.add(vuelo);
+			}
+		}
+		return this.getVuelos();	
 	}
 
 	@Override

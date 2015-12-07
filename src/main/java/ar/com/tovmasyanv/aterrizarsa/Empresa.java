@@ -9,13 +9,11 @@ import ar.com.tovmasyanv.exceptions.AterrizarException;
 public class Empresa {
 
 	private List<Cliente> clientes;
-	private List<Vuelo> vuelos;
 	
 	private static Empresa instance = new Empresa();
 	
 	private Empresa() {
 		clientes = new ArrayList<Cliente>();
-		vuelos = new ArrayList<Vuelo>();
 	}
 
 	public void venderPasajePrimeraVez(Vuelo vuelo, String tipo, DatosClienteDTO datos) {
@@ -62,15 +60,6 @@ public class Empresa {
 			throw new AterrizarException("El cliente ya existe en la base");
 	}
 	
-	public Vuelo buscarVuelo(String codigoVuelo) throws AterrizarException {
-		for(Vuelo vuelo : this.getVuelos()) {
-			if(vuelo.getCodigoVuelo().equalsIgnoreCase(codigoVuelo))
-				return vuelo;
-		}
-		
-		throw new AterrizarException("No se encontro el vuelo");
-	}
-	
 	public static Empresa getInstance() {
 		return instance;
 	}
@@ -80,12 +69,6 @@ public class Empresa {
 	}
 	public void setClientes(List<Cliente> clientes) {
 		this.clientes = clientes;
-	}
-	public List<Vuelo> getVuelos() {
-		return vuelos;
-	}
-	public void setVuelos(List<Vuelo> vuelos) {
-		this.vuelos = vuelos;
 	}
 	
 }

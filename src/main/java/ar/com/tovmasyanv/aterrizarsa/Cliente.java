@@ -44,9 +44,8 @@ public abstract class Cliente {
 		Pasaje pasaje = null;
 		int indexPasaje = 0;
 		try {
-			vuelo = empresa.buscarVuelo(codigoVuelo);
-			
 			AerolineasFacade aerolineasFacade = AerolineasFacade.getInstance();
+			vuelo = aerolineasFacade.buscarVuelo(codigoVuelo);
 			aerolineasFacade.comprarPasaje(vuelo, tipo);	
 			
 			pasaje = buscarPasajeReservado(vuelo, this);
