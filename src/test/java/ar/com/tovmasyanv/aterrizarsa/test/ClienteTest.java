@@ -72,6 +72,18 @@ public class ClienteTest extends BaseTest {
 		assertEquals(0, vueloRawson.getPasajesReservados().size());
 	}
 	
+	@Test
+	public void cambiarPasaje() throws AterrizarException {
+		Empresa empresa = Empresa.getInstance();
+		empresa.venderPasajePrimeraVez(vueloCordoba, "P", rodriPerez);
+		Cliente clientePlatinum = empresa.getClientes().get(0);
+		assertEquals(clientePlatinum, vueloCordoba.getPasajesVendidos().get(0).getCliente());
+		assertEquals(0, vueloCordoba2.getPasajesVendidos().size());
+		clientePlatinum.cambiarPasaje(vueloCordoba, vueloCordoba2, "P");
+		assertEquals(0, vueloCordoba.getPasajesVendidos().size());
+		assertEquals(clientePlatinum, vueloCordoba2.getPasajesVendidos().get(0).getCliente());
+	}
+	
 	@After
 	public void cleanStaticClasses() {
 		AerolineasFacade aerolineasFacade = AerolineasFacade.getInstance();
