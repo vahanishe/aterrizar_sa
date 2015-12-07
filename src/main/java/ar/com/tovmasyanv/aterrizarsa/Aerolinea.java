@@ -5,8 +5,12 @@ import java.util.List;
 
 public abstract class Aerolinea {
 	
-	private String name;
+	protected String name;
 
+	protected Aerolinea(String name) {
+		this.name = name;
+	}
+	
 	public abstract void avisarCambiosVuelo(String codigoVuelo, Date fechaHoraSalidaNew, Date fechaHoraLlegadaNew);
 	
 	public abstract List<Vuelo> buscarPasajes(String destino, int cantidadPasajes, String tipoPasaje, Date fechaIda, Date fechaVuelta);

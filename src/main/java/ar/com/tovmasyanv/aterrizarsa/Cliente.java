@@ -33,7 +33,7 @@ public abstract class Cliente {
 	}
 
 	public List<Vuelo> buscarPasajes(String destino, int cantidadPasajes, String tipoPasaje, Date fechaIda, Date fechaVuelta) {
-		AerolineasFacade aerolineasFacade = new AerolineasFacade();
+		AerolineasFacade aerolineasFacade = AerolineasFacade.getInstance();
 		List<Vuelo> vuelosDisponibles = aerolineasFacade.buscarPasajes(destino, cantidadPasajes, tipoPasaje, fechaIda, fechaVuelta);
 		return vuelosDisponibles;		
 	}
@@ -46,7 +46,7 @@ public abstract class Cliente {
 		try {
 			vuelo = empresa.buscarVuelo(codigoVuelo);
 			
-			AerolineasFacade aerolineasFacade = new AerolineasFacade();
+			AerolineasFacade aerolineasFacade = AerolineasFacade.getInstance();
 			aerolineasFacade.comprarPasaje(vuelo, tipo);	
 			
 			pasaje = buscarPasajeReservado(vuelo, this);

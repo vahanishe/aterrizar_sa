@@ -7,6 +7,10 @@ import ar.com.tovmasyanv.aterrizarsa.Aerolinea;
 import ar.com.tovmasyanv.aterrizarsa.Vuelo;
 
 public class AerolineasArgentinas extends Aerolinea {
+	
+	protected AerolineasArgentinas(String name) {
+		super(name);
+	}
 
 	@Override
 	public void avisarCambiosVuelo(String codigoVuelo, Date fechaHoraSalidaNew,

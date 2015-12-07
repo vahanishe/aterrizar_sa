@@ -1,5 +1,6 @@
 package ar.com.tovmasyanv.aterrizarsa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.tovmasyanv.dtos.DatosClienteDTO;
@@ -12,12 +13,15 @@ public class Empresa {
 	
 	private static Empresa instance = new Empresa();
 	
-	private Empresa() {}
+	private Empresa() {
+		clientes = new ArrayList<Cliente>();
+		vuelos = new ArrayList<Vuelo>();
+	}
 
 	public void venderPasajePrimeraVez(Vuelo vuelo, String tipo, DatosClienteDTO datos) {
 		Pasaje pasaje = null;
 		try {
-			AerolineasFacade aerolineasFacade = new AerolineasFacade();
+			AerolineasFacade aerolineasFacade = AerolineasFacade.getInstance();
 			aerolineasFacade.comprarPasaje(vuelo, tipo);
 
 			int indexPasaje = vuelo.getPrimerMatch(tipo);

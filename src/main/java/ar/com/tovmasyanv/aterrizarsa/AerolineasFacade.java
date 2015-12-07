@@ -9,6 +9,12 @@ import ar.com.tovmasyanv.exceptions.AterrizarException;
 public class AerolineasFacade {
 	
 	private List<Aerolinea> aerolineas;
+	
+	private static AerolineasFacade instance = new AerolineasFacade();
+	
+	private AerolineasFacade() {
+		aerolineas = new ArrayList<Aerolinea>();
+	}
 
 	public void avisarCambiosVuelo(String codigoVuelo, Date fechaHoraSalidaNew, Date fechaHoraLlegadaNew) {
 		Empresa empresa = Empresa.getInstance();
@@ -59,6 +65,10 @@ public class AerolineasFacade {
 		throw new AterrizarException("No se encuentra la aviolínea buscada");
 	}
 
+	public static AerolineasFacade getInstance() {
+		return instance;
+	}
+	
 	public List<Aerolinea> getAerolineas() {
 		return aerolineas;
 	}

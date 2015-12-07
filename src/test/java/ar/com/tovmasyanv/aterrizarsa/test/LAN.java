@@ -8,6 +8,10 @@ import ar.com.tovmasyanv.aterrizarsa.Vuelo;
 
 public class LAN extends Aerolinea {
 
+	protected LAN(String name) {
+		super(name);
+	}
+
 	@Override
 	public void avisarCambiosVuelo(String codigoVuelo, Date fechaHoraSalidaNew,
 			Date fechaHoraLlegadaNew) {

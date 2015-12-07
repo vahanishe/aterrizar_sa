@@ -18,7 +18,7 @@ public class ClienteClassic extends Cliente {
 	public void reservarPasaje(Vuelo vuelo, String tipo) throws AterrizarException {
 		Date fechaActual = new Date();
 		long fechasDiferencia = vuelo.getHoraSalida().getTime() - fechaActual.getTime();
-		if(fechasDiferencia/(1000*60*60*24*30) > RESERVA_ANTICIPACION) {
+		if(fechasDiferencia/(1000*60*60*24*30) < RESERVA_ANTICIPACION) {
 			int indexPasaje = vuelo.getPrimerMatch(tipo);
 			Pasaje pasaje = vuelo.getPasajesDisponibles().remove(indexPasaje);
 			pasaje.setCliente(this);
@@ -63,7 +63,7 @@ public class ClienteClassic extends Cliente {
 				throw new AterrizarException("No se encontró el pasaje a cambiar");
 			int indexPasaje = vueloNuevo.getPrimerMatch(tipo);
 			Pasaje pasajeNuevo = vueloNuevo.getPasajesDisponibles().get(indexPasaje);
-			AerolineasFacade aerolineasFacade = new AerolineasFacade();
+			AerolineasFacade aerolineasFacade = AerolineasFacade.getInstance();
 			aerolineasFacade.cambiarPasaje(vueloViejo.getCodigoVuelo(), vueloNuevo.getCodigoVuelo(), tipo);
 			vueloNuevo.getPasajesDisponibles().remove(indexPasaje);
 			vueloNuevo.getPasajesVendidos().add(pasajeNuevo);
