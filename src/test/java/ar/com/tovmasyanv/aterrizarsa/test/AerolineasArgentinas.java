@@ -22,6 +22,7 @@ public class AerolineasArgentinas extends Aerolinea {
 		System.out.println("Nueva hora de salida: " + fechaHoraLlegadaNew.toString());
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public List<Vuelo> buscarPasajes(String destino, int cantidadPasajes,
 			String tipoPasaje, Date fechaIda, Date fechaVuelta) {
@@ -35,12 +36,14 @@ public class AerolineasArgentinas extends Aerolinea {
 		List<Vuelo> vuelosDisponibles = new ArrayList<Vuelo>();
 		for(Vuelo vuelo : this.getVuelos()) {
 			if(vuelo.getDestino().equals(destino)
-					&& vuelo.getHoraSalida().equals(fechaIda)
+					&& vuelo.getHoraSalida().getYear() == fechaIda.getYear()
+					&& vuelo.getHoraSalida().getMonth() == fechaIda.getMonth()
+					&& vuelo.getHoraSalida().getDay() == fechaIda.getDay()
 					&& this.pasajesDisponiblesPorTipo(vuelo, tipoPasaje) >= cantidadPasajes) {
 				vuelosDisponibles.add(vuelo);
 			}
 		}
-		return this.getVuelos();
+		return vuelosDisponibles;
 	}
 
 	@Override

@@ -32,16 +32,20 @@ public class ClienteGold extends Cliente {
 	@Override
 	public void cancelarReserva(Vuelo vuelo, String tipo) throws AterrizarException {
 		Date fechaActual = new Date();
+		int index = 0;
 		long fechasDiferencia = vuelo.getHoraSalida().getTime() - fechaActual.getTime();
-		if(fechasDiferencia/(1000L*60L*60L*24L) < DIAS_CANCELACION_CAMBIO) {
+		if(fechasDiferencia/(1000*60*60*24) > DIAS_CANCELACION_CAMBIO) {
 			boolean pasajeEncontrado = false;
 			for(Pasaje pasaje : vuelo.getPasajesReservados()) {
 				if(pasaje.getCliente().equals(this) && pasaje.getTipo().equalsIgnoreCase(tipo)) {
-					vuelo.getPasajesReservados().remove(pasaje);
+					index = vuelo.getPasajesReservados().indexOf(pasaje);
 					pasajeEncontrado = true;
+					break;
 				}
 			}
-			if(!pasajeEncontrado)
+			if(pasajeEncontrado)
+				vuelo.getPasajesReservados().remove(index);
+			else
 				throw new AterrizarException("No se encontró el pasaje a cancelar");
 		}
 		else 

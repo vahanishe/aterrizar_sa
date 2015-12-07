@@ -31,7 +31,7 @@ public class BaseTest {
 	
 	@SuppressWarnings({ "deprecation", "unused" })
 	@Before
-	public void setUp() throws Exception {
+	public void prepare() throws Exception {
 		Pasaje pasaje1 = new Pasaje(new Float(1500), "E");
 		Pasaje pasaje2 = new Pasaje(new Float(1500), "E");
 		Pasaje pasaje3 = new Pasaje(new Float(1500), "E");

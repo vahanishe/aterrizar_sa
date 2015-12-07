@@ -39,7 +39,6 @@ public abstract class Cliente {
 	}
 
 	public void comprarPasaje(String codigoVuelo, String tipo) {
-		Empresa empresa = Empresa.getInstance();
 		Vuelo vuelo = null;
 		Pasaje pasaje = null;
 		int indexPasaje = 0;
